@@ -127,21 +127,21 @@ class BasicEchoTestCase: XCTestCase {
     func testRegularSSL() {
         let certificate = Certs.trustCertCollection
         client = Echo_EchoServiceClient(address: address, certificates: certificate, arguments: [.sslTargetNameOverride("example.com")])
-        client.host = "example.com"
+		client.host = "localhost"
         client.timeout = defaultTimeout
 
-        XCTAssertEqual("hi", try! client.get(Echo_EchoRequest(text: "hi")).text)
+        XCTAssertEqual("Swift echo get: hi", try! client.get(Echo_EchoRequest(text: "hi")).text)
     }
 
     func testTLSMutualAuth() {
         let certificate = Certs.trustCertCollection
         let clientCertificate = Certs.clientCertChain
         let clientKey = Certs.clientPrivateKey
-        client = Echo_EchoServiceClient(address: address, certificates: certificate, clientCertificates: clientCertificate, clientKey: clientKey)
-        client.host = "example.com"
+        client = Echo_EchoServiceClient(address: address, certificates: certificate, clientCertificates: clientCertificate, clientKey: clientKey, arguments: [.sslTargetNameOverride("example.com")])
+		client.host = "localhost"
         client.timeout = defaultTimeout
 
-        XCTAssertEqual("hi", try! client.get(Echo_EchoRequest(text: "hi")).text)
+        XCTAssertEqual("Swift echo get: hi", try! client.get(Echo_EchoRequest(text: "hi")).text)
     }
 
     override func tearDown() {
