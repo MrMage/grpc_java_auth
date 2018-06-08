@@ -262,9 +262,9 @@ internal final class Echo_EchoServer: ServiceServer {
     super.init(address: address, certificateURL: certificateURL, keyURL: keyURL)
   }
 
-  internal init?(address: String, certificateString: String, keyString: String, provider: Echo_EchoProvider) {
+  internal init?(address: String, certificateString: String, keyString: String, rootCerts: String?, provider: Echo_EchoProvider) {
     self.provider = provider
-    super.init(address: address, certificateString: certificateString, keyString: keyString)
+	super.init(address: address, certificateString: certificateString, keyString: keyString, rootCerts: rootCerts)
   }
 
   /// Determines and calls the appropriate request handler, depending on the request's method.
